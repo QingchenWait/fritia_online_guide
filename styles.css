@@ -140,7 +140,7 @@ p {
 
 h1 {
   margin-bottom: 14px;
-  font-size: clamp(52px, 7vw, 92px);
+  font-size: clamp(45px, 5.5vw, 80px);
   line-height: 0.96;
   letter-spacing: 0;
 }
@@ -149,7 +149,7 @@ h1 {
   max-width: 520px;
   margin-bottom: 0;
   color: var(--muted);
-  font-size: clamp(20px, 3vw, 30px);
+  font-size: clamp(15px, 2vw, 25px);
   line-height: 1.35;
 }
 
