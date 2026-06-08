@@ -20,10 +20,33 @@
 
 .back-link {
   display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
   margin-bottom: 26px;
+  padding: 0 16px 0 12px;
+  border: 1px solid rgba(0, 122, 255, 0.35);
+  border-radius: 999px;
+  background: #ffffff;
   color: var(--accent);
   font-weight: 700;
   text-decoration: none;
+  box-shadow: 0 10px 28px rgba(0, 122, 255, 0.12);
+}
+
+.back-link:hover {
+  border-color: rgba(0, 122, 255, 0.55);
+  background: var(--accent-soft);
+}
+
+.back-link-icon {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
 }
 
 .article-content {
@@ -92,8 +115,50 @@
   color: inherit;
 }
 
+.article-content .math-block {
+  overflow-x: auto;
+  margin: 1.2em 0;
+  padding: 4px 0;
+}
+
 .article-content blockquote {
   padding-left: 18px;
   border-left: 3px solid var(--accent);
   color: var(--muted);
+}
+
+.article-content img,
+.article-content video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.article-content iframe {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 8px;
+  background: #0b0d12;
+}
+
+.article-content table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.article-content th,
+.article-content td {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+}
+
+.article-content mjx-container[jax="SVG"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  padding-bottom: 2px;
 }

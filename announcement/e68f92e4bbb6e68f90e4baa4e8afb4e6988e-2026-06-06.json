@@ -1,8 +1,0 @@
-{
-  "title": "插件提交说明",
-  "date": "2026-06-06",
-  "slug": "e68f92e4bbb6e68f90e4baa4e8afb4e6988e-2026-06-06",
-  "pinned": false,
-  "url": "announcement.html?id=e68f92e4bbb6e68f90e4baa4e8afb4e6988e-2026-06-06",
-  "html": "<h1>插件提交说明</h1>\n<p>新增插件时，请在 <code>plugin/plugins.json</code> 里加入插件 GitHub 仓库地址。</p>\n<h2>metadata 要求</h2>\n<p>插件仓库根目录建议提供：</p>\n<ul><li><code>logo.png</code></li><li><code>metadata.yaml</code></li></ul>\n<p><code>metadata.yaml</code> 中建议包含 <code>display_name</code>、<code>desc</code>、<code>version</code> 三个字段，便于资源库自动生成卡片。</p>"
-}

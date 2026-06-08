@@ -1,8 +1,0 @@
-{
-  "title": "资源库维护说明",
-  "date": "2026-06-07",
-  "slug": "e8b584e6ba90e5ba93e7bbb4e68aa4e8afb4e6988e-2026-06-07",
-  "pinned": false,
-  "url": "announcement.html?id=e8b584e6ba90e5ba93e7bbb4e68aa4e8afb4e6988e-2026-06-07",
-  "html": "<h1>资源库维护说明</h1>\n<p>资源库会跟随仓库内容自动更新。</p>\n<h2>更新方式</h2>\n<ul><li>平台部署教程链接维护在首页静态内容中。</li><li>人格数据入口维护为百度网盘按钮。</li><li>插件资源通过 <code>plugin/plugins.json</code> 管理，重新部署后会生成插件卡片。</li></ul>\n<p>如果插件仓库提供了 <code>logo.png</code> 与 <code>metadata.yaml</code>，页面会优先使用仓库中的展示信息。</p>"
-}

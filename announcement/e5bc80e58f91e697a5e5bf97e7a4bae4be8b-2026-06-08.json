@@ -1,8 +1,0 @@
-{
-  "title": "开发日志示例",
-  "date": "2026-06-08",
-  "slug": "e5bc80e58f91e697a5e5bf97e7a4bae4be8b-2026-06-08",
-  "pinned": false,
-  "url": "announcement.html?id=e5bc80e58f91e697a5e5bf97e7a4bae4be8b-2026-06-08",
-  "html": "<h1>开发日志示例</h1>\n<p>芙提雅 ONLINE 展示站点已完成首版静态页面搭建。</p>\n<h2>本次内容</h2>\n<ul><li>首页支持 BiliBili 宣传视频内嵌播放。</li><li>公告系统会读取 <code>publish/*.md</code> 并生成详情页。</li><li>插件资源库会读取 <code>plugin/plugins.json</code> 并生成插件卡片。</li></ul>\n<p>后续只需要追加 Markdown 公告和插件仓库地址，即可在 GitHub Pages 部署时自动更新展示内容。</p>"
-}

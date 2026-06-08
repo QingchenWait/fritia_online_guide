@@ -1,14 +1,8 @@
-<div align="center">
-
-# 芙提雅 ONLINE 使用文档
 
 “对你的爱，永远在线”
 
 <span style="color:#8a8a8a">文档版本：</span><span style="color:#ff7f7f"> V1.2 </span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#8a8a8a">更新日期：</span><span style="color:#ff7f7f"> 2026/06/07</span>
 
-</div>
-
-<br>
 
 ## <span style="color:#f08abf">和小老师聊天吧！</span>
 

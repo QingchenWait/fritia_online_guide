@@ -23,7 +23,12 @@
 
     <main class="article-main">
       <article class="article-shell">
-        <a class="back-link" href="./#announcements">返回公告</a>
+        <a class="back-link" href="./" aria-label="返回主页面">
+          <svg class="back-link-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"></path>
+          </svg>
+          <span>返回主页面</span>
+        </a>
         <p id="article-date" class="eyebrow"></p>
         <h1 id="article-title">开发者公告</h1>
         <div id="article-content" class="article-content">
@@ -32,6 +37,19 @@
       </article>
     </main>
 
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+          processEscapes: true
+        },
+        svg: {
+          fontCache: "global"
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     <script src="announcement.js" type="module"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
@@ -45,13 +45,90 @@ function parseAnnouncementFilename(filename) {
 }
 
 function inlineMarkdown(value) {
-  let text = escapeHtml(value);
+  const rawSegments = [];
+  const rawTokenPrefix = "RAW_HTML_OR_MATH_SEGMENT_";
+  const rawPattern = /(\$\$[\s\S]+?\$\$|\\\[[\s\S]+?\\\]|\\\([\s\S]+?\\\)|\$[^$\n]+\$|<!--[\s\S]*?-->|<\/?[A-Za-z][A-Za-z0-9-]*(?:\s[^<>]*)?>|&(?:[A-Za-z][A-Za-z0-9]+|#[0-9]+|#x[0-9A-Fa-f]+);)/g;
+  const preserved = value.replace(rawPattern, (match) => {
+    const token = `${rawTokenPrefix}${rawSegments.length}__`;
+    rawSegments.push(match);
+    return token;
+  });
+
+  let text = escapeHtml(preserved);
   text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
   text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
   text = text.replace(/`([^`]+)`/g, "<code>$1</code>");
   text = text.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   text = text.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  for (let index = 0; index < rawSegments.length; index += 1) {
+    text = text.replaceAll(`${rawTokenPrefix}${index}__`, rawSegments[index]);
+  }
   return text;
+}
+
+const htmlBlockTags = new Set([
+  "address",
+  "article",
+  "aside",
+  "blockquote",
+  "canvas",
+  "details",
+  "dialog",
+  "div",
+  "figure",
+  "footer",
+  "form",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "header",
+  "hr",
+  "iframe",
+  "main",
+  "nav",
+  "ol",
+  "p",
+  "pre",
+  "section",
+  "table",
+  "ul",
+  "video"
+]);
+
+const rawHtmlTags = new Set(["script", "style"]);
+const markdownContainerTags = new Set([
+  "article",
+  "aside",
+  "details",
+  "div",
+  "figure",
+  "footer",
+  "header",
+  "main",
+  "nav",
+  "section"
+]);
+
+function getHtmlBlockTag(line) {
+  const match = line.trimStart().match(/^<([A-Za-z][A-Za-z0-9-]*)(?:\s|>|\/>)/);
+  if (!match) {
+    return null;
+  }
+  const tag = match[1].toLowerCase();
+  return htmlBlockTags.has(tag) || rawHtmlTags.has(tag) ? tag : null;
+}
+
+function getStandaloneContainerTag(line) {
+  const trimmed = line.trim();
+  const match = trimmed.match(/^<\/?([A-Za-z][A-Za-z0-9-]*)(?:\s[^>]*)?>$/);
+  if (!match || trimmed.endsWith("/>")) {
+    return null;
+  }
+  const tag = match[1].toLowerCase();
+  return markdownContainerTags.has(tag) ? tag : null;
 }
 
 function markdownToHtml(markdown) {
@@ -61,6 +138,8 @@ function markdownToHtml(markdown) {
   let list = null;
   let blockquote = [];
   let code = null;
+  let htmlBlock = null;
+  let mathBlock = null;
 
   const flushParagraph = () => {
     if (paragraph.length) {
@@ -93,6 +172,27 @@ function markdownToHtml(markdown) {
   for (const rawLine of lines) {
     const line = rawLine.trimEnd();
 
+    if (mathBlock) {
+      const trimmed = line.trim();
+      if (trimmed === mathBlock.close) {
+        html.push(`<div class="math-block">${mathBlock.open}\n${mathBlock.lines.join("\n")}\n${mathBlock.close}</div>`);
+        mathBlock = null;
+      } else {
+        mathBlock.lines.push(rawLine);
+      }
+      continue;
+    }
+
+    if (htmlBlock) {
+      htmlBlock.lines.push(rawLine);
+      const lower = line.toLowerCase();
+      if (htmlBlock.selfClosing || lower.includes(`</${htmlBlock.tag}>`)) {
+        html.push(htmlBlock.lines.join("\n"));
+        htmlBlock = null;
+      }
+      continue;
+    }
+
     if (line.startsWith("```")) {
       if (code) {
         flushCode();
@@ -107,6 +207,45 @@ function markdownToHtml(markdown) {
 
     if (code) {
       code.lines.push(rawLine);
+      continue;
+    }
+
+    const trimmed = line.trim();
+    if (trimmed === "$$" || trimmed === "\\[") {
+      flushParagraph();
+      flushList();
+      flushBlockquote();
+      mathBlock = {
+        open: trimmed,
+        close: trimmed === "$$" ? "$$" : "\\]",
+        lines: []
+      };
+      continue;
+    }
+
+    if (getStandaloneContainerTag(line)) {
+      flushParagraph();
+      flushList();
+      flushBlockquote();
+      html.push(rawLine);
+      continue;
+    }
+
+    const htmlTag = getHtmlBlockTag(line);
+    if (htmlTag) {
+      flushParagraph();
+      flushList();
+      flushBlockquote();
+      const lower = trimmed.toLowerCase();
+      if (trimmed.endsWith("/>") || lower.includes(`</${htmlTag}>`) || htmlTag === "hr") {
+        html.push(rawLine);
+      } else {
+        htmlBlock = {
+          tag: htmlTag,
+          selfClosing: trimmed.endsWith("/>"),
+          lines: [rawLine]
+        };
+      }
       continue;
     }
 
@@ -162,6 +301,12 @@ function markdownToHtml(markdown) {
   }
 
   flushCode();
+  if (mathBlock) {
+    html.push(`<div class="math-block">${mathBlock.open}\n${mathBlock.lines.join("\n")}</div>`);
+  }
+  if (htmlBlock) {
+    html.push(htmlBlock.lines.join("\n"));
+  }
   flushParagraph();
   flushList();
   flushBlockquote();
@@ -199,6 +344,12 @@ async function ensureDirs() {
 async function buildAnnouncements() {
   const entries = [];
   const files = await readdir(publishDir).catch(() => []);
+  const oldGeneratedFiles = await readdir(announcementDir).catch(() => []);
+  await Promise.all(
+    oldGeneratedFiles
+      .filter((file) => file.endsWith(".json"))
+      .map((file) => unlink(path.join(announcementDir, file)).catch(() => {}))
+  );
 
   const usageFile = path.join(publishDir, `${usageTitle}.md`);
   const usageMarkdown = await readFile(usageFile, "utf8").catch(() => `# ${usageTitle}\n\n使用文档尚未创建。`);

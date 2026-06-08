@@ -8,11 +8,28 @@ function setText(selector, value) {
   }
 }
 
+function typesetMath(container) {
+  const run = () => {
+    if (window.MathJax?.typesetPromise) {
+      window.MathJax.typesetPromise([container]).catch((error) => {
+        console.warn("MathJax typeset failed:", error);
+      });
+    }
+  };
+
+  if (window.MathJax?.typesetPromise) {
+    run();
+  } else {
+    window.addEventListener("load", run, { once: true });
+  }
+}
+
 async function main() {
   const response = await fetch(`announcement/${encodeURIComponent(slug)}.json`);
+  const content = document.querySelector("#article-content");
   if (!response.ok) {
     setText("#article-title", "公告不存在");
-    document.querySelector("#article-content").innerHTML = "<p>未找到对应公告，请返回首页重新选择。</p>";
+    content.innerHTML = "<p>未找到对应公告，请返回首页重新选择。</p>";
     return;
   }
 
@@ -20,7 +37,8 @@ async function main() {
   document.title = `${article.title} | 芙提雅 ONLINE`;
   setText("#article-title", article.title);
   setText("#article-date", article.pinned ? "置顶公告" : article.date);
-  document.querySelector("#article-content").innerHTML = article.html;
+  content.innerHTML = article.html;
+  typesetMath(content);
 }
 
 main();
