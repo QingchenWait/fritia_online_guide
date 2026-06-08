@@ -1,0 +1,8 @@
+{
+  "title": "芙提雅 ONLINE 使用文档",
+  "date": "",
+  "slug": "usage",
+  "pinned": true,
+  "url": "announcement.html?id=usage",
+  "html": "<h1>芙提雅 ONLINE 使用文档</h1>\n<blockquote><p>原文档：&lt;https://docs.qq.com/doc/DYUZCQVFGQXNGUFh6&gt;</p></blockquote>\n<p>由于腾讯文档页面需要通过腾讯文档前端运行时加载正文，当前仓库构建脚本无法稳定、无登录地导出完整正文。请将腾讯文档中的使用说明复制到本文件中，重新部署后首页置顶公告会自动展示更新后的内容。</p>\n<h2>快速开始</h2>\n<ol><li>在 AstrBot 中安装并启用芙提雅 ONLINE APP。</li><li>按照机器人配置项填入所需 API、人格数据与插件参数。</li><li>在目标聊天平台中唤起机器人并进行功能验证。</li></ol>\n<h2>常用入口</h2>\n<ul><li>首页资源库提供 AstrBot 平台部署教程。</li><li>小老师 bot 人格数据可通过百度网盘按钮获取。</li><li>增强插件会从 <code>plugin/plugins.json</code> 中维护的 GitHub 仓库自动生成。</li></ul>"
+}

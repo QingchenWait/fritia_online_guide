@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="芙提雅 ONLINE：AstrBot 机器人 APP 开发成果、功能说明和资源库。">
+    <title>芙提雅 ONLINE</title>
+    <link rel="icon" href="assets/logo.png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header" aria-label="站点导航">
+      <a class="brand" href="./" aria-label="返回首页">
+        <img src="assets/logo.png" alt="" width="38" height="38">
+        <span>芙提雅 ONLINE</span>
+      </a>
+      <nav class="nav-links" aria-label="页面章节">
+        <a href="#features">核心功能</a>
+        <a href="#announcements">公告</a>
+        <a href="#resources">资源库</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <img class="hero-logo" src="assets/logo.png" alt="芙提雅 ONLINE Logo">
+          <p class="eyebrow">AstrBot App Showcase</p>
+          <h1 id="hero-title">芙提雅 ONLINE</h1>
+          <p class="subtitle">全能 AI 助手 | @CyanDust_青尘 开发</p>
+        </div>
+        <div class="video-shell" aria-label="芙提雅 ONLINE BiliBili 宣传视频">
+          <iframe
+            src="https://player.bilibili.com/player.html?isOutside=true&bvid=BV1qR7r6tEs1&p=1&autoplay=0"
+            title="芙提雅 ONLINE 宣传视频"
+            loading="lazy"
+            allow="fullscreen; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </section>
+
+      <section id="features" class="section" aria-labelledby="features-title">
+        <div class="section-heading">
+          <p class="eyebrow">Features</p>
+          <h2 id="features-title">核心功能特性</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon">☀</div>
+            <h3>小太阳人格模拟系统</h3>
+            <p>稳定复现角色语气与陪伴感。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">◎</div>
+            <h3>接入尘白知识库</h3>
+            <p>快速检索设定、攻略与资料。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">＋</div>
+            <h3>丰富插件功能</h3>
+            <p>扩展聊天、查询与自动化能力。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="announcements" class="section" aria-labelledby="announcements-title">
+        <div class="section-heading">
+          <p class="eyebrow">News</p>
+          <h2 id="announcements-title">开发者公告</h2>
+        </div>
+        <div class="announcement-panel">
+          <div id="announcement-list" class="announcement-list" aria-live="polite">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="resources" class="section" aria-labelledby="resources-title">
+        <div class="section-heading">
+          <p class="eyebrow">Library</p>
+          <h2 id="resources-title">资源库</h2>
+        </div>
+
+        <div class="resource-layout">
+          <section class="resource-block" aria-labelledby="deploy-title">
+            <h3 id="deploy-title">AstrBot 平台部署教程</h3>
+            <ul class="link-list">
+              <li>
+                <a href="https://www.bilibili.com/video/BV1zRfEBeEpj" target="_blank" rel="noopener noreferrer">
+                  AstrBot + NapCat 部署 QQ 聊天机器人
+                </a>
+              </li>
+              <li>
+                <a href="https://www.bilibili.com/video/BV1u2QiBEESH" target="_blank" rel="noopener noreferrer">
+                  AstrBot 人格化插件推荐
+                </a>
+              </li>
+            </ul>
+          </section>
+
+          <section class="resource-block" aria-labelledby="persona-title">
+            <h3 id="persona-title">小老师 bot 人格数据</h3>
+            <a class="primary-button" href="https://pan.baidu.com/s/1P-7wy8VfFhU0X7GnA13wOQ?pwd=chen" target="_blank" rel="noopener noreferrer">
+              百度网盘
+            </a>
+          </section>
+        </div>
+
+        <section class="plugin-section" aria-labelledby="plugins-title">
+          <div class="subsection-heading">
+            <h3 id="plugins-title">小老师 bot 增强插件</h3>
+          </div>
+          <div id="plugin-grid" class="plugin-grid" aria-live="polite">
+            <div class="plugin-empty">正在读取插件资源...</div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 CyanDust_青尘</span>
+      <a href="https://www.bilibili.com/video/BV1qR7r6tEs1" target="_blank" rel="noopener noreferrer">宣传视频</a>
+    </footer>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
