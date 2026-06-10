@@ -8,6 +8,7 @@ const pluginDir = path.join(root, "plugin");
 const announcementDir = path.join(root, "announcement");
 const dataDir = path.join(root, "assets", "data");
 const pluginSourceFile = path.join(root, "plugin_source.json");
+const pluginSourceMd5File = path.join(root, "plugin_source-md5.json");
 
 const usageTitle = "芙提雅 ONLINE 使用文档";
 
@@ -31,6 +32,53 @@ function slugify(value) {
 
 function contentHash(value) {
   return createHash("sha256").update(value).digest("hex").slice(0, 12);
+}
+
+function md5Hash(value) {
+  return createHash("md5").update(value).digest("hex");
+}
+
+function normalizeBaseUrl(value = "") {
+  const trimmed = String(value || "").trim();
+  if (!trimmed) {
+    return "";
+  }
+  return trimmed.endsWith("/") ? trimmed : `${trimmed}/`;
+}
+
+function defaultGitHubPagesUrl() {
+  const repository = process.env.GITHUB_REPOSITORY || "";
+  const [owner, repo] = repository.split("/");
+  if (!owner || !repo) {
+    return "";
+  }
+
+  const ownerHost = owner.toLowerCase();
+  if (repo.toLowerCase() === `${ownerHost}.github.io`) {
+    return `https://${ownerHost}.github.io/`;
+  }
+  return `https://${ownerHost}.github.io/${repo}/`;
+}
+
+const publicBaseUrl = normalizeBaseUrl(
+  process.env.PUBLIC_BASE_URL ||
+  process.env.SITE_BASE_URL ||
+  process.env.GITHUB_PAGES_URL ||
+  defaultGitHubPagesUrl()
+);
+
+function toPublicUrl(value) {
+  const url = String(value || "").trim();
+  if (!url) {
+    return "";
+  }
+  if (/^(?:https?:)?\/\//i.test(url) || /^data:/i.test(url)) {
+    return url;
+  }
+  if (!publicBaseUrl) {
+    return url;
+  }
+  return new URL(url.replace(/^\.?\//, ""), publicBaseUrl).href;
 }
 
 function parseAnnouncementFilename(filename) {
@@ -529,6 +577,10 @@ async function buildPlugins() {
     const astrbotVersion = declaredAstrbotVersion || "未注明";
     const supportPlatforms = Array.isArray(metadata.support_platforms) ? metadata.support_platforms : [];
     const logo = logoSource ? `plugin/${repoName}/logo.png?v=${logoHash}` : "assets/logo.png";
+    const publicLogo = toPublicUrl(logo);
+    const stars = repoInfo.stargazers_count || 0;
+    const forks = repoInfo.forks_count || 0;
+    const updatedAt = repoInfo.pushed_at || repoInfo.updated_at || "";
 
     plugins.push({
       repo,
@@ -546,11 +598,17 @@ async function buildPlugins() {
       author,
       repo,
       tags,
-      version
+      version,
+      stars,
+      updated_at: updatedAt,
+      logo: publicLogo
     };
 
     if (declaredAstrbotVersion) {
       pluginSource[key].astrbot_version = declaredAstrbotVersion;
+    }
+    if (supportPlatforms.length) {
+      pluginSource[key].support_platforms = supportPlatforms;
     }
 
     if (metadata.short_desc) {
@@ -573,9 +631,9 @@ async function buildPlugins() {
       astrbot_version: astrbotVersion,
       support_platforms: supportPlatforms,
       tags,
-      stars: repoInfo.stargazers_count || 0,
-      forks: repoInfo.forks_count || 0,
-      updated_at: repoInfo.pushed_at || repoInfo.updated_at || "",
+      stars,
+      forks,
+      updated_at: updatedAt,
       hash: pluginHash,
       logo
     });
@@ -588,7 +646,9 @@ async function buildPlugins() {
 
   await writeFile(path.join(dataDir, "plugins.json"), JSON.stringify(resolved, null, 2), "utf8");
   await writeFile(path.join(dataDir, "plugin-source-cards.json"), JSON.stringify(pluginSourceCards, null, 2), "utf8");
-  await writeFile(pluginSourceFile, JSON.stringify(pluginSource, null, 2), "utf8");
+  const pluginSourceJson = `${JSON.stringify(pluginSource, null, 2)}\n`;
+  await writeFile(pluginSourceFile, pluginSourceJson, "utf8");
+  await writeFile(pluginSourceMd5File, `${JSON.stringify({ md5: md5Hash(pluginSourceJson) }, null, 2)}\n`, "utf8");
 }
 
 await ensureDirs();

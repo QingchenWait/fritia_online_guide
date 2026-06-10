@@ -34,6 +34,8 @@ jobs:
         run: npm run sync:plugins
 
       - name: Build static data
+        env:
+          PUBLIC_BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
         run: npm run build
 
       - name: Upload artifact

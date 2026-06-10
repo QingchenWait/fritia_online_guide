@@ -16,8 +16,10 @@
       "dingtalk"
     ],
     "tags": [
-      "AstrBot",
-      "青尘工作室"
+      "智能回复",
+      "图片",
+      "表情包",
+      "斗图"
     ],
     "stars": 1,
     "forks": 0,
@@ -38,8 +40,9 @@
       "aiocqhttp"
     ],
     "tags": [
-      "AstrBot",
-      "青尘工作室"
+      "声音克隆",
+      "MiMo",
+      "TTS"
     ],
     "stars": 4,
     "forks": 1,
@@ -60,8 +63,8 @@
       "aiocqhttp"
     ],
     "tags": [
-      "AstrBot",
-      "青尘工作室"
+      "抽老婆",
+      "群聊"
     ],
     "stars": 1,
     "forks": 0,
@@ -86,8 +89,9 @@
       "dingtalk"
     ],
     "tags": [
-      "AstrBot",
-      "青尘工作室"
+      "尘白禁区",
+      "游戏日历",
+      "活动提醒"
     ],
     "stars": 1,
     "forks": 0,
@@ -109,8 +113,10 @@
       "qq_official"
     ],
     "tags": [
-      "AstrBot",
-      "青尘工作室"
+      "QQ群",
+      "群聊增强",
+      "黑名单",
+      "多机器人"
     ],
     "stars": 1,
     "forks": 0,
@@ -133,8 +139,9 @@
       "qq_official_webhook"
     ],
     "tags": [
-      "AstrBot",
-      "青尘工作室"
+      "流量控制",
+      "限流",
+      "webui"
     ],
     "stars": 0,
     "forks": 0,
@@ -155,8 +162,10 @@
       "aiocqhttp"
     ],
     "tags": [
-      "AstrBot",
-      "青尘工作室"
+      "群聊",
+      "黑名单",
+      "唤醒",
+      "昵称"
     ],
     "stars": 1,
     "forks": 0,

@@ -11,7 +11,17 @@
       "斗图"
     ],
     "version": "v2.8.1",
+    "stars": 1,
+    "updated_at": "2026-06-08T17:16:10Z",
+    "logo": "https://qingchenwait.github.io/fritia_online_guide/plugin/astrbot_plugin_smart_imagechat_hub/logo.png?v=9257ca1203b3",
     "astrbot_version": ">=4.24.2",
+    "support_platforms": [
+      "aiocqhttp",
+      "qq_official",
+      "telegram",
+      "wecom",
+      "dingtalk"
+    ],
     "social_link": "https://github.com/QingchenWait"
   },
   "astrbot_plugin_mimo_tts_voiceclone": {
@@ -25,6 +35,12 @@
       "TTS"
     ],
     "version": "v1.2.6",
+    "stars": 4,
+    "updated_at": "2026-04-30T11:07:32Z",
+    "logo": "https://qingchenwait.github.io/fritia_online_guide/plugin/astrbot_plugin_mimo_tts_voiceclone/logo.png?v=5b8afa9c50b6",
+    "support_platforms": [
+      "aiocqhttp"
+    ],
     "social_link": "https://github.com/QingchenWait"
   },
   "astrbot_plugin_animewife_plus": {
@@ -37,7 +53,13 @@
       "群聊"
     ],
     "version": "v1.9.2",
+    "stars": 1,
+    "updated_at": "2026-05-12T03:06:18Z",
+    "logo": "https://qingchenwait.github.io/fritia_online_guide/plugin/astrbot_plugin_animewife_plus/logo.png?v=9230c4ab9ad4",
     "astrbot_version": ">=4.5.0",
+    "support_platforms": [
+      "aiocqhttp"
+    ],
     "social_link": "https://github.com/QingchenWait"
   },
   "astrbot_plugin_cbjq_activity_reminder": {
@@ -51,7 +73,17 @@
       "活动提醒"
     ],
     "version": "v1.0.4",
+    "stars": 1,
+    "updated_at": "2026-05-12T15:16:20Z",
+    "logo": "https://qingchenwait.github.io/fritia_online_guide/plugin/astrbot_plugin_cbjq_activity_reminder/logo.png?v=eb6903f9ea40",
     "astrbot_version": ">=4.16.0",
+    "support_platforms": [
+      "aiocqhttp",
+      "qq_official",
+      "telegram",
+      "wecom",
+      "dingtalk"
+    ],
     "short_desc": "尘白禁区活动日历与过期提醒",
     "social_link": "https://github.com/QingchenWait"
   },
@@ -67,7 +99,14 @@
       "多机器人"
     ],
     "version": "v0.2.1",
+    "stars": 1,
+    "updated_at": "2026-05-06T19:07:35Z",
+    "logo": "https://qingchenwait.github.io/fritia_online_guide/plugin/astrbot_plugin_multi_bot_control/logo.png?v=f00c2174a89b",
     "astrbot_version": ">=4.5.7",
+    "support_platforms": [
+      "aiocqhttp",
+      "qq_official"
+    ],
     "short_desc": "限制群聊多机器人循环调用。",
     "social_link": "https://github.com/QingchenWait"
   },
@@ -82,7 +121,15 @@
       "webui"
     ],
     "version": "0.6.6",
+    "stars": 0,
+    "updated_at": "2026-06-10T09:14:13Z",
+    "logo": "https://qingchenwait.github.io/fritia_online_guide/plugin/astrbot_plugin_token_controller/logo.png?v=1e5ad4237cd1",
     "astrbot_version": ">=4.24.2",
+    "support_platforms": [
+      "aiocqhttp",
+      "qq_official",
+      "qq_official_webhook"
+    ],
     "short_desc": "群聊 Token 精细化流量控制插件",
     "social_link": "https://github.com/QingchenWait"
   },
@@ -98,7 +145,13 @@
       "昵称"
     ],
     "version": "0.5.0",
+    "stars": 1,
+    "updated_at": "2026-05-14T03:42:20Z",
+    "logo": "https://qingchenwait.github.io/fritia_online_guide/plugin/astrbot_plugin_nickname_inject_defender/logo.png?v=12477dcf2558",
     "astrbot_version": ">=4.0.0",
+    "support_platforms": [
+      "aiocqhttp"
+    ],
     "short_desc": "阻止昵称注入行为，例如昵称中包含唤醒词",
     "social_link": "https://github.com/QingchenWait"
   }

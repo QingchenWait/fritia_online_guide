@@ -53,6 +53,8 @@ npm run build
 
 构建脚本还会在仓库根目录生成 AstrBot 第三方插件源文件 `plugin_source.json`，并生成插件源展示页 `plugin-source.html`。用户可以复制部署后的 `plugin_source.json` 链接，在 AstrBot 插件管理/插件市场中添加为第三方插件源。
 
+`plugin_source.json` 会输出 AstrBot 插件市场可直接读取的 `logo`、`stars`、`updated_at` 等字段；其中 `logo` 会使用部署后的绝对 URL，避免 AstrBot 面板把相对路径解析成本机地址。构建脚本还会同步生成 `plugin_source-md5.json`，供 AstrBot 判断自定义插件源缓存是否需要刷新。
+
 如果需要调整 AstrBot 第三方插件源中的分类标签，可以直接编辑 `plugin_source.json` 中对应插件的 `tags` 数组。后续 `npm run build` 会保留这些手动编辑的 `tags`，不会被远端 `metadata.yaml` 覆盖；插件名称、描述、版本等字段仍会自动同步。
 
 构建脚本同时兼容数组格式，例如 `{ "plugins": ["https://github.com/owner/repo"] }`。
