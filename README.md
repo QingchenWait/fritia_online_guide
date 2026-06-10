@@ -2,6 +2,8 @@
 
 这是一个可直接部署到 GitHub Pages 的静态网站，用于展示 AstrBot 机器人 APP「芙提雅 ONLINE」的开发成果、功能说明和资源库。
 
+[芙提雅 ONLINE 宣传视频](https://www.bilibili.com/video/BV1qR7r6tEs1)
+
 ## 本地预览
 
 ```bash
