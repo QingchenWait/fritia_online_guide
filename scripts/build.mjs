@@ -7,6 +7,7 @@ const publishDir = path.join(root, "publish");
 const pluginDir = path.join(root, "plugin");
 const announcementDir = path.join(root, "announcement");
 const dataDir = path.join(root, "assets", "data");
+const pluginSourceFile = path.join(root, "plugin_source.json");
 
 const usageTitle = "芙提雅 ONLINE 使用文档";
 
@@ -332,13 +333,68 @@ function parseYamlScalar(value = "") {
 
 function parseMetadataYaml(source) {
   const data = {};
+  let currentKey = null;
   for (const line of source.split(/\r?\n/)) {
     const match = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
     if (match) {
-      data[match[1]] = parseYamlScalar(match[2]);
+      currentKey = match[1];
+      const value = match[2].trim();
+      data[currentKey] = value ? parseYamlScalar(value) : [];
+      continue;
+    }
+
+    const item = line.match(/^\s+-\s*(.*)$/);
+    if (item && currentKey) {
+      if (!Array.isArray(data[currentKey])) {
+        data[currentKey] = data[currentKey] ? [data[currentKey]] : [];
+      }
+      data[currentKey].push(parseYamlScalar(item[1]));
     }
   }
   return data;
+}
+
+function parseGitHubRepo(url) {
+  const match = String(url).match(/^https:\/\/github\.com\/([^/\s]+)\/([^/\s#?]+?)(?:\.git)?(?:[/?#].*)?$/i);
+  if (!match) {
+    return null;
+  }
+  return {
+    owner: match[1],
+    repo: match[2]
+  };
+}
+
+function normalizeTags(value) {
+  if (Array.isArray(value)) {
+    return value.filter(Boolean).map(String);
+  }
+  if (typeof value === "string" && value.trim()) {
+    return value.split(",").map((item) => item.trim()).filter(Boolean);
+  }
+  return ["AstrBot", "青尘工作室"];
+}
+
+function sourceKey(repo, metadata, repoName) {
+  return metadata.name || parseGitHubRepo(repo)?.repo || repoName;
+}
+
+async function readExistingPluginSource() {
+  return readFile(pluginSourceFile, "utf8")
+    .then(JSON.parse)
+    .catch(() => ({}));
+}
+
+function findExistingPluginSourceEntry(existingPluginSource, key, repo) {
+  if (existingPluginSource[key] && typeof existingPluginSource[key] === "object") {
+    return existingPluginSource[key];
+  }
+  return Object.values(existingPluginSource).find((item) => (
+    item &&
+    typeof item === "object" &&
+    typeof item.repo === "string" &&
+    item.repo.replace(/\/$/, "") === repo.replace(/\/$/, "")
+  ));
 }
 
 async function ensureDirs() {
@@ -440,6 +496,9 @@ function repoNameFromUrl(url) {
 async function buildPlugins() {
   const repos = await readPluginList();
   const plugins = [];
+  const pluginSource = {};
+  const pluginSourceCards = [];
+  const existingPluginSource = await readExistingPluginSource();
 
   for (const repo of repos) {
     if (typeof repo !== "string" || !repo.trim()) {
@@ -450,20 +509,75 @@ async function buildPlugins() {
     const folder = path.join(pluginDir, repoName);
     const metadataPath = path.join(folder, "metadata.yaml");
     const logoPath = path.join(folder, "logo.png");
+    const repoInfoPath = path.join(folder, "repo.json");
     const metadataSource = await readFile(metadataPath, "utf8").catch(() => "");
     const metadata = metadataSource ? parseMetadataYaml(metadataSource) : {};
+    const repoInfo = await readFile(repoInfoPath, "utf8").then(JSON.parse).catch(() => ({}));
     const logoSource = await readFile(logoPath).catch(() => null);
     const logoHash = logoSource ? contentHash(logoSource) : "fallback";
-    const pluginHash = contentHash(`${repo}\n${metadataSource}\n${logoHash}`);
+    const pluginHash = contentHash(`${repo}\n${metadataSource}\n${JSON.stringify(repoInfo)}\n${logoHash}`);
+    const key = sourceKey(repo, metadata, repoName);
+    const author = metadata.author || repoInfo.owner || parseGitHubRepo(repo)?.owner || "青尘工作室";
+    const displayName = metadata.display_name || metadata.name || repoName;
+    const desc = metadata.desc || metadata.short_desc || repoInfo.description || "插件描述待补充。";
+    const version = metadata.version || "latest";
+    const existingPlugin = findExistingPluginSourceEntry(existingPluginSource, key, repo);
+    const tags = Object.hasOwn(existingPlugin || {}, "tags")
+      ? normalizeTags(existingPlugin.tags)
+      : normalizeTags(metadata.tags);
+    const declaredAstrbotVersion = metadata.astrbot_version || metadata.astrbot_version_requirement || "";
+    const astrbotVersion = declaredAstrbotVersion || "未注明";
+    const supportPlatforms = Array.isArray(metadata.support_platforms) ? metadata.support_platforms : [];
+    const logo = logoSource ? `plugin/${repoName}/logo.png?v=${logoHash}` : "assets/logo.png";
 
     plugins.push({
       repo,
-      display_name: metadata.display_name || repoName,
-      desc: metadata.desc || "插件描述待补充。",
-      version: metadata.version || "latest",
+      display_name: displayName,
+      desc,
+      version,
       hash: pluginHash,
-      logo: `plugin/${repoName}/logo.png?v=${logoHash}`,
+      logo,
       logo_missing: !logoSource
+    });
+
+    pluginSource[key] = {
+      display_name: displayName,
+      desc,
+      author,
+      repo,
+      tags,
+      version
+    };
+
+    if (declaredAstrbotVersion) {
+      pluginSource[key].astrbot_version = declaredAstrbotVersion;
+    }
+
+    if (metadata.short_desc) {
+      pluginSource[key].short_desc = metadata.short_desc;
+    }
+    if (metadata.social_link) {
+      pluginSource[key].social_link = metadata.social_link;
+    } else if (repoInfo.owner) {
+      pluginSource[key].social_link = `https://github.com/${repoInfo.owner}`;
+    }
+
+    pluginSourceCards.push({
+      key,
+      repo,
+      display_name: displayName,
+      desc,
+      short_desc: metadata.short_desc || desc,
+      author,
+      version,
+      astrbot_version: astrbotVersion,
+      support_platforms: supportPlatforms,
+      tags,
+      stars: repoInfo.stargazers_count || 0,
+      forks: repoInfo.forks_count || 0,
+      updated_at: repoInfo.pushed_at || repoInfo.updated_at || "",
+      hash: pluginHash,
+      logo
     });
   }
 
@@ -473,6 +587,8 @@ async function buildPlugins() {
   })).map(({ logo_missing, ...plugin }) => plugin);
 
   await writeFile(path.join(dataDir, "plugins.json"), JSON.stringify(resolved, null, 2), "utf8");
+  await writeFile(path.join(dataDir, "plugin-source-cards.json"), JSON.stringify(pluginSourceCards, null, 2), "utf8");
+  await writeFile(pluginSourceFile, JSON.stringify(pluginSource, null, 2), "utf8");
 }
 
 await ensureDirs();

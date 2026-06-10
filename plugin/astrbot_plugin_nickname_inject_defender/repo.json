@@ -1,0 +1,14 @@
+{
+  "owner": "QingchenWait",
+  "name": "astrbot_plugin_nickname_inject_defender",
+  "full_name": "QingchenWait/astrbot_plugin_nickname_inject_defender",
+  "html_url": "https://github.com/QingchenWait/astrbot_plugin_nickname_inject_defender",
+  "default_branch": "main",
+  "stargazers_count": 1,
+  "watchers_count": 1,
+  "forks_count": 0,
+  "open_issues_count": 0,
+  "pushed_at": "2026-05-14T03:42:20Z",
+  "updated_at": "2026-05-14T03:39:02Z",
+  "description": "AstrBot 插件 | 将特定昵称设置为黑名单 (例如唤醒词)，阻止 QQ 群聊中因发送者昵称、引用昵称或 @ 昵称触发 LLM 回复。"
+}

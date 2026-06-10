@@ -67,6 +67,25 @@ async function getDefaultBranch(owner, repo) {
   return JSON.parse(raw).default_branch || "main";
 }
 
+async function getRepoInfo(owner, repo) {
+  const raw = await fetchText(`https://api.github.com/repos/${owner}/${repo}`);
+  const data = JSON.parse(raw);
+  return {
+    owner: data.owner?.login || owner,
+    name: data.name || repo,
+    full_name: data.full_name || `${owner}/${repo}`,
+    html_url: data.html_url || `https://github.com/${owner}/${repo}`,
+    default_branch: data.default_branch || "main",
+    stargazers_count: data.stargazers_count || 0,
+    watchers_count: data.watchers_count || 0,
+    forks_count: data.forks_count || 0,
+    open_issues_count: data.open_issues_count || 0,
+    pushed_at: data.pushed_at || "",
+    updated_at: data.updated_at || "",
+    description: data.description || ""
+  };
+}
+
 async function syncRepo(url) {
   const parsed = parseGitHubRepo(url);
   if (!parsed) {
@@ -74,15 +93,17 @@ async function syncRepo(url) {
     return;
   }
 
-  let branch = "main";
+  let repoInfo = null;
   try {
-    branch = await getDefaultBranch(parsed.owner, parsed.repo);
+    repoInfo = await getRepoInfo(parsed.owner, parsed.repo);
   } catch (error) {
     console.warn(`Cannot read ${parsed.owner}/${parsed.repo} default branch: ${error.message}`);
     return;
   }
+  const branch = repoInfo.default_branch || "main";
   const targetDir = path.join(pluginDir, parsed.repo);
   await mkdir(targetDir, { recursive: true });
+  await writeFile(path.join(targetDir, "repo.json"), JSON.stringify(repoInfo, null, 2), "utf8");
 
   const base = `https://raw.githubusercontent.com/${parsed.owner}/${parsed.repo}/${branch}`;
   const files = [

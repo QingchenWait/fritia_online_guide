@@ -51,6 +51,10 @@ npm run build
 `sync:plugins` 会从每个 GitHub 仓库默认分支读取 `logo.png` 和 `metadata.yaml`，并缓存到 `plugin/<repo>/`。`build` 会读取 metadata 中的 `display_name`、`desc`、`version` 生成插件卡片。
 构建输出会给公告详情与插件 logo 加内容哈希版本参数，前端读取数据时也会绕过缓存，因此修改公告 Markdown 或远端插件 metadata/logo 后，重新部署即可刷新页面内容。工作流还会每 6 小时定时重建一次，用于同步插件远端信息变化。
 
+构建脚本还会在仓库根目录生成 AstrBot 第三方插件源文件 `plugin_source.json`，并生成插件源展示页 `plugin-source.html`。用户可以复制部署后的 `plugin_source.json` 链接，在 AstrBot 插件管理/插件市场中添加为第三方插件源。
+
+如果需要调整 AstrBot 第三方插件源中的分类标签，可以直接编辑 `plugin_source.json` 中对应插件的 `tags` 数组。后续 `npm run build` 会保留这些手动编辑的 `tags`，不会被远端 `metadata.yaml` 覆盖；插件名称、描述、版本等字段仍会自动同步。
+
 构建脚本同时兼容数组格式，例如 `{ "plugins": ["https://github.com/owner/repo"] }`。
 
 ## 部署到 GitHub Pages

@@ -1,0 +1,14 @@
+{
+  "owner": "QingchenWait",
+  "name": "astrbot_plugin_cbjq_activity_reminder",
+  "full_name": "QingchenWait/astrbot_plugin_cbjq_activity_reminder",
+  "html_url": "https://github.com/QingchenWait/astrbot_plugin_cbjq_activity_reminder",
+  "default_branch": "main",
+  "stargazers_count": 1,
+  "watchers_count": 1,
+  "forks_count": 0,
+  "open_issues_count": 0,
+  "pushed_at": "2026-05-12T15:16:20Z",
+  "updated_at": "2026-05-12T16:04:52Z",
+  "description": "AstrBot 插件 | 查询尘白禁区国服活动日历，支持活动截止日期自动提醒。"
+}

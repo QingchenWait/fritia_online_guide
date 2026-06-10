@@ -92,9 +92,32 @@ a {
   text-decoration: none;
 }
 
+.nav-links .nav-subscribe,
+.source-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nav-links .nav-subscribe {
+  color: #ffffff;
+  background: var(--text);
+  box-shadow: 0 12px 28px rgba(29, 29, 31, 0.16);
+}
+
 .nav-links a:hover {
   color: var(--text);
   background: rgba(29, 29, 31, 0.06);
+}
+
+.nav-links .nav-subscribe:hover {
+  color: #ffffff;
+  background: #333336;
 }
 
 main {
@@ -446,6 +469,47 @@ h2 {
   font-size: 14px;
 }
 
+.source-button {
+  border: 1px solid var(--line);
+  cursor: pointer;
+  font: inherit;
+}
+
+.source-button-dark {
+  border-color: var(--text);
+  background: var(--text);
+  color: #ffffff;
+}
+
+.source-button-dark:hover {
+  background: #333336;
+}
+
+.source-button-light {
+  background: #ffffff;
+  color: var(--text);
+}
+
+.source-button-light:hover {
+  border-color: rgba(0, 122, 255, 0.28);
+  color: var(--accent);
+}
+
+.source-button-primary {
+  min-height: 48px;
+  padding: 0 22px;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 16px;
+  box-shadow: 0 14px 34px rgba(0, 122, 255, 0.22);
+}
+
+.source-button-primary:hover {
+  border-color: #006ee6;
+  background: #006ee6;
+}
+
 .plugin-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -612,7 +676,7 @@ h2 {
 
   .nav-links {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     width: 100%;
   }
 

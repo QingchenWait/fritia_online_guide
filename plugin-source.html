@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="青尘工作室 AstrBot 第三方插件源合集。">
+    <title>青尘工作室插件合集 | 芙提雅 ONLINE</title>
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="plugin-source.css">
+  </head>
+  <body>
+    <header class="source-page-header">
+      <a class="back-link source-back-link" href="./" aria-label="返回主页">
+        <svg class="back-link-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6"></path>
+        </svg>
+        <span>返回主页</span>
+      </a>
+    </header>
+
+    <main class="source-page-main">
+      <section class="source-hero" aria-labelledby="source-title">
+        <p class="eyebrow">AstrBot Plugin Source</p>
+        <div class="source-hero-title-row">
+          <h1 id="source-title">青尘工作室插件合集</h1>
+          <div class="source-actions">
+            <button id="copy-source-link" class="source-button source-button-primary" type="button">一键复制订阅链接</button>
+          </div>
+        </div>
+        <p class="source-subtitle">在 AstrBot 中添加第三方插件源，集中获取 bot 增强插件。</p>
+      </section>
+
+      <section class="source-list-section" aria-labelledby="source-list-title">
+        <div class="source-toolbar">
+          <div>
+            <p class="eyebrow">Collection</p>
+            <h2 id="source-list-title">插件列表</h2>
+          </div>
+          <div class="source-actions">
+            <a class="source-button source-button-dark" href="#install-guide">添加插件源方法</a>
+          </div>
+        </div>
+        <div id="source-plugin-grid" class="source-plugin-grid" aria-live="polite">
+          <div class="plugin-empty">正在读取插件源...</div>
+        </div>
+      </section>
+
+      <section id="install-guide" class="install-guide" aria-labelledby="install-guide-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Guide</p>
+            <h2 id="install-guide-title">添加插件源方法</h2>
+          </div>
+        </div>
+        <div class="install-steps">
+          <article class="install-step">
+            <div class="step-visual">
+              <span class="step-dot"></span>
+              <span class="step-line wide"></span>
+              <span class="step-line"></span>
+            </div>
+            <h3>1. 复制订阅链接</h3>
+            <p>点击页面上方“一键复制订阅链接”，复制本仓库部署后的 `plugin_source.json` 地址。</p>
+          </article>
+          <article class="install-step">
+            <div class="step-visual">
+              <span class="step-tab active"></span>
+              <span class="step-tab"></span>
+              <span class="step-panel"></span>
+            </div>
+            <h3>2. 打开 AstrBot 插件源管理</h3>
+            <p>进入 AstrBot WebUI，打开 [插件市场] 页面，点击标题栏右侧的 [默认插件源] 按钮，在弹出的窗口中点击 [添加插件源]。</p>
+          </article>
+          <article class="install-step">
+            <div class="step-visual">
+              <span class="step-input"></span>
+              <span class="step-button"></span>
+            </div>
+            <h3>3. 添加并刷新插件源</h3>
+            <p>粘贴订阅链接并保存，然后刷新插件市场，即可看到 [青尘工作室] 插件合集。</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="plugin-source.js" type="module"></script>
+  </body>
+</html>

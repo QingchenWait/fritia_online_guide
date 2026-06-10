@@ -1,0 +1,14 @@
+{
+  "owner": "QingchenWait",
+  "name": "astrbot_plugin_multi_bot_control",
+  "full_name": "QingchenWait/astrbot_plugin_multi_bot_control",
+  "html_url": "https://github.com/QingchenWait/astrbot_plugin_multi_bot_control",
+  "default_branch": "main",
+  "stargazers_count": 1,
+  "watchers_count": 1,
+  "forks_count": 0,
+  "open_issues_count": 0,
+  "pushed_at": "2026-05-06T19:07:35Z",
+  "updated_at": "2026-05-06T19:03:14Z",
+  "description": "灵活的 AstrBot 的群聊内多机器人共存控制，支持多种控制策略，支持自建和外部机器人识别，支持自定义机器人交流的特殊提示词。"
+}

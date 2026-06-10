@@ -1,0 +1,14 @@
+{
+  "owner": "QingchenWait",
+  "name": "astrbot_plugin_smart_imagechat_hub",
+  "full_name": "QingchenWait/astrbot_plugin_smart_imagechat_hub",
+  "html_url": "https://github.com/QingchenWait/astrbot_plugin_smart_imagechat_hub",
+  "default_branch": "main",
+  "stargazers_count": 1,
+  "watchers_count": 1,
+  "forks_count": 0,
+  "open_issues_count": 0,
+  "pushed_at": "2026-06-08T17:16:10Z",
+  "updated_at": "2026-06-08T17:08:30Z",
+  "description": "LLM 驱动的一体化 AstrBot 图片对话插件。自动生成多维度图像标签，并通过多模态语义分析，实现智能斗图、主动表情、表情包分享等多种功能，支持 4 种导入图库方法。"
+}

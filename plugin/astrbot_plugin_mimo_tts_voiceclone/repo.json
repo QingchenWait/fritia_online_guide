@@ -1,0 +1,14 @@
+{
+  "owner": "QingchenWait",
+  "name": "astrbot_plugin_mimo_tts_voiceclone",
+  "full_name": "QingchenWait/astrbot_plugin_mimo_tts_voiceclone",
+  "html_url": "https://github.com/QingchenWait/astrbot_plugin_mimo_tts_voiceclone",
+  "default_branch": "main",
+  "stargazers_count": 4,
+  "watchers_count": 4,
+  "forks_count": 1,
+  "open_issues_count": 0,
+  "pushed_at": "2026-04-30T11:07:32Z",
+  "updated_at": "2026-06-07T19:51:22Z",
+  "description": "基于小米 Mimo-v2.5-TTS-VoiceClone 的声音克隆 TTS 插件，用于 AstrBot 聊天机器人。"
+}
