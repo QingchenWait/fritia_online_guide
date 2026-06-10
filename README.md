@@ -49,6 +49,7 @@ npm run build
 ```
 
 `sync:plugins` 会从每个 GitHub 仓库默认分支读取 `logo.png` 和 `metadata.yaml`，并缓存到 `plugin/<repo>/`。`build` 会读取 metadata 中的 `display_name`、`desc`、`version` 生成插件卡片。
+构建输出会给公告详情与插件 logo 加内容哈希版本参数，前端读取数据时也会绕过缓存，因此修改公告 Markdown 或远端插件 metadata/logo 后，重新部署即可刷新页面内容。工作流还会每 6 小时定时重建一次，用于同步插件远端信息变化。
 
 构建脚本同时兼容数组格式，例如 `{ "plugins": ["https://github.com/owner/repo"] }`。
 

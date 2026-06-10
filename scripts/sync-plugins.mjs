@@ -74,7 +74,13 @@ async function syncRepo(url) {
     return;
   }
 
-  const branch = await getDefaultBranch(parsed.owner, parsed.repo);
+  let branch = "main";
+  try {
+    branch = await getDefaultBranch(parsed.owner, parsed.repo);
+  } catch (error) {
+    console.warn(`Cannot read ${parsed.owner}/${parsed.repo} default branch: ${error.message}`);
+    return;
+  }
   const targetDir = path.join(pluginDir, parsed.repo);
   await mkdir(targetDir, { recursive: true });
 

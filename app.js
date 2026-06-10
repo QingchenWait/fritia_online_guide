@@ -28,7 +28,9 @@ function safeUrl(value, fallback = "#") {
 }
 
 async function loadJson(file) {
-  const response = await fetch(new URL(file, dataRoot));
+  const url = new URL(file, dataRoot);
+  url.searchParams.set("t", Date.now().toString());
+  const response = await fetch(url, { cache: "no-store" });
   if (!response.ok) {
     throw new Error(`Cannot load ${file}`);
   }

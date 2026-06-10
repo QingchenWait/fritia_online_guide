@@ -1,4 +1,5 @@
 import { mkdir, readFile, readdir, unlink, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 
 const root = process.cwd();
@@ -25,6 +26,10 @@ function slugify(value) {
     .replace(/^-+|-+$/g, "")
     .toLowerCase();
   return encoded || "article";
+}
+
+function contentHash(value) {
+  return createHash("sha256").update(value).digest("hex").slice(0, 12);
 }
 
 function parseAnnouncementFilename(filename) {
@@ -353,12 +358,14 @@ async function buildAnnouncements() {
 
   const usageFile = path.join(publishDir, `${usageTitle}.md`);
   const usageMarkdown = await readFile(usageFile, "utf8").catch(() => `# ${usageTitle}\n\n使用文档尚未创建。`);
+  const usageHash = contentHash(usageMarkdown);
   const usage = {
     title: usageTitle,
     date: "",
     slug: "usage",
     pinned: true,
-    url: "announcement.html?id=usage",
+    hash: usageHash,
+    url: `announcement.html?id=usage&v=${usageHash}`,
     html: markdownToHtml(usageMarkdown)
   };
   await writeFile(path.join(announcementDir, "usage.json"), JSON.stringify(usage, null, 2), "utf8");
@@ -367,6 +374,7 @@ async function buildAnnouncements() {
     date: usage.date,
     slug: usage.slug,
     pinned: true,
+    hash: usage.hash,
     url: usage.url
   });
 
@@ -382,13 +390,15 @@ async function buildAnnouncements() {
     }
 
     const markdown = await readFile(path.join(publishDir, file), "utf8");
+    const hash = contentHash(markdown);
     const slug = slugify(`${parsed.title}-${parsed.date}`);
     const item = {
       title: parsed.title,
       date: parsed.date,
       slug,
       pinned: false,
-      url: `announcement.html?id=${slug}`,
+      hash,
+      url: `announcement.html?id=${slug}&v=${hash}`,
       html: markdownToHtml(markdown)
     };
     await writeFile(path.join(announcementDir, `${slug}.json`), JSON.stringify(item, null, 2), "utf8");
@@ -396,7 +406,7 @@ async function buildAnnouncements() {
   }
 
   announcements.sort((a, b) => b.date.localeCompare(a.date));
-  entries.push(...announcements.slice(0, 3).map(({ title, date, slug, pinned, url }) => ({ title, date, slug, pinned, url })));
+  entries.push(...announcements.slice(0, 3).map(({ title, date, slug, pinned, hash, url }) => ({ title, date, slug, pinned, hash, url })));
 
   await writeFile(path.join(dataDir, "announcements.json"), JSON.stringify(entries, null, 2), "utf8");
 }
@@ -440,15 +450,20 @@ async function buildPlugins() {
     const folder = path.join(pluginDir, repoName);
     const metadataPath = path.join(folder, "metadata.yaml");
     const logoPath = path.join(folder, "logo.png");
-    const metadata = await readFile(metadataPath, "utf8").then(parseMetadataYaml).catch(() => ({}));
+    const metadataSource = await readFile(metadataPath, "utf8").catch(() => "");
+    const metadata = metadataSource ? parseMetadataYaml(metadataSource) : {};
+    const logoSource = await readFile(logoPath).catch(() => null);
+    const logoHash = logoSource ? contentHash(logoSource) : "fallback";
+    const pluginHash = contentHash(`${repo}\n${metadataSource}\n${logoHash}`);
 
     plugins.push({
       repo,
       display_name: metadata.display_name || repoName,
       desc: metadata.desc || "插件描述待补充。",
       version: metadata.version || "latest",
-      logo: `plugin/${repoName}/logo.png`,
-      logo_missing: !(await readFile(logoPath).then(() => true).catch(() => false))
+      hash: pluginHash,
+      logo: `plugin/${repoName}/logo.png?v=${logoHash}`,
+      logo_missing: !logoSource
     });
   }
 

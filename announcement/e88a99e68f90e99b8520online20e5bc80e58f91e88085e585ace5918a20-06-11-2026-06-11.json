@@ -1,0 +1,9 @@
+{
+  "title": "芙提雅 ONLINE 开发者公告 (06-11)",
+  "date": "2026-06-11",
+  "slug": "e88a99e68f90e99b8520online20e5bc80e58f91e88085e585ace5918a20-06-11-2026-06-11",
+  "pinned": false,
+  "hash": "400d6e6469f7",
+  "url": "announcement.html?id=e88a99e68f90e99b8520online20e5bc80e58f91e88085e585ace5918a20-06-11-2026-06-11&v=400d6e6469f7",
+  "html": "<p>感谢分析员大人对 <strong>芙提雅 ONLINE</strong> 的热心支持！</p>\n<p>小老师 bot 现在已经部署在 <a href=\"https://space.bilibili.com/3546788124428579\" target=\"_blank\" rel=\"noopener noreferrer\">@狸西娅</a>​、<a href=\"https://space.bilibili.com/91764829\" target=\"_blank\" rel=\"noopener noreferrer\">@九鬼鬼_DTKuKY</a>​、<a href=\"https://space.bilibili.com/445742313\" target=\"_blank\" rel=\"noopener noreferrer\">@吸管Xiguan</a> ​和 <a href=\"https://space.bilibili.com/349484111\" target=\"_blank\" rel=\"noopener noreferrer\">@Woundwort伍德沃特</a> ​的粉丝群里。感谢所有参与内测、给予支持的分析员！</p>\n<p>青尘工作室在近期，通过研发新的插件，对小老师 bot 做了进一步优化。在优化后，对运营策略进行以下调整：</p>\n<ul><li><strong>调整每日群聊调用量上限</strong>：先前的每日 6M token 硬上限，在部分群聊中可能消耗过快，导致很快触发限流。青尘工作室通过开发新插件，为小老师 bot 引入了 <strong>阶梯式模型调用机制</strong>，将每天的 6M token 上限<strong>提升到 8M</strong> —— 每天前 4M token 使用 GPT-5.5 模型，用量在 4-8M 时，会自动改为使用 <strong>GPT-5.4</strong> 模型进行对话。</li></ul>\n<ul><li><strong>优化 token 用量</strong>：我们发现，在部分群聊中，单次对话的 token 调用量异常高。针对此问题，青尘工作室开发插件，实现了智能优化 LLM 上下文窗口和缓存命中机制，以解决该问题。目前所有群聊的 token 用量均已恢复正常。</li></ul>\n<ul><li><strong>取消过载保护限制</strong>：对于 <a href=\"https://qingchenwait.github.io/fritia_online_guide/announcement.html?id=e88a99e68f90e99b8520online20e5bc80e58f91e88085e585ace5918a20-06-07-2026-06-07\" target=\"_blank\" rel=\"noopener noreferrer\">上一次公告</a> 中提及的 bot 可能触发过载保护的问题，我们通过引入<strong>并发回复</strong>机制，解决了拥塞问题，因此不再实装该限制。但是，需要注意，由于 LLM 回复本身可能存在延迟，小老师 bot <strong>不一定能立即回复召唤对话</strong>。当对话出现延迟时，请耐心等待，<strong>请勿进行多次重复召唤</strong>。</li></ul>\n<p>青尘工作室将继续为芙提雅 ONLINE 增加功能、优化使用体验。就让小老师一直陪伴在分析员的身边吧 ~</p>"
+}

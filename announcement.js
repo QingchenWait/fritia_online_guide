@@ -1,5 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("id") || "usage";
+const version = params.get("v") || "";
 
 function setText(selector, value) {
   const element = document.querySelector(selector);
@@ -25,7 +26,12 @@ function typesetMath(container) {
 }
 
 async function main() {
-  const response = await fetch(`announcement/${encodeURIComponent(slug)}.json`);
+  const articleUrl = new URL(`announcement/${encodeURIComponent(slug)}.json`, window.location.href);
+  if (version) {
+    articleUrl.searchParams.set("v", version);
+  }
+  articleUrl.searchParams.set("t", Date.now().toString());
+  const response = await fetch(articleUrl, { cache: "no-store" });
   const content = document.querySelector("#article-content");
   if (!response.ok) {
     setText("#article-title", "公告不存在");
