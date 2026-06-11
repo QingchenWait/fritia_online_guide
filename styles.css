@@ -38,7 +38,7 @@ a {
 
 .site-header {
   position: sticky;
-  top: 0;
+  top: 14px;
   z-index: 10;
   display: flex;
   align-items: center;

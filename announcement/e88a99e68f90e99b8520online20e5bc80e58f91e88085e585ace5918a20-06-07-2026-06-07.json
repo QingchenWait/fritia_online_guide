@@ -3,7 +3,7 @@
   "date": "2026-06-07",
   "slug": "e88a99e68f90e99b8520online20e5bc80e58f91e88085e585ace5918a20-06-07-2026-06-07",
   "pinned": false,
-  "hash": "fb99cb233074",
-  "url": "announcement.html?id=e88a99e68f90e99b8520online20e5bc80e58f91e88085e585ace5918a20-06-07-2026-06-07&v=fb99cb233074",
+  "hash": "ff43eab117a0",
+  "url": "announcement.html?id=e88a99e68f90e99b8520online20e5bc80e58f91e88085e585ace5918a20-06-07-2026-06-07&v=ff43eab117a0",
   "html": "<p>感谢分析员大人对 <strong>芙提雅 ONLINE</strong> 的热心支持！</p>\n<p>小老师 bot 现在已经部署在 <a href=\"https://space.bilibili.com/3546788124428579\" target=\"_blank\" rel=\"noopener noreferrer\">@狸西娅</a>​、<a href=\"https://space.bilibili.com/91764829\" target=\"_blank\" rel=\"noopener noreferrer\">@九鬼鬼_DTKuKY</a>​、<a href=\"https://space.bilibili.com/445742313\" target=\"_blank\" rel=\"noopener noreferrer\">@吸管Xiguan</a> ​和 <a href=\"https://space.bilibili.com/349484111\" target=\"_blank\" rel=\"noopener noreferrer\">@Woundwort伍德沃特</a> ​的粉丝群里。感谢所有参与内测、给予支持的分析员！ 本工作室已经扩容了云服务器，大大减少了小老师宕机的频率。相关费用将在后续通过薅 lhm 创作激励的方式回血，大家请不必破费打赏，多给我点三连就好了 ~</p>\n<p>不过，由于小老师 bot 接入的群聊增多，目前产生了远高于预期的 token 消耗。为了维持芙提雅 ONLINE 的长线运行，在此增加一些开源节流措施：</p>\n<ul><li><strong>小老师 bot 暂时不再接入其他群聊</strong>，向各位还没有接入的 UP 主致以歉意。不过，小老师基于开源的 AstrBot + Napcat 软件，如有需要，各位可参考教程自行部署，这里可以提供小老师 bot 的功能插件等技术支持。</li></ul>\n<ul><li>设置了每日群聊调用量上限，<strong>每个群聊每天最多使用 6M token</strong> (经过统计，该上限能够满足一个 200 人群聊以正常频率与小老师 bot 对话的需求)。如果单日用量超过 6M token，小老师 bot 在当天将不会继续响应需要使用 LLM 进行的对话，抽老婆等不调用 LLM 的功能不受影响。<strong>用量每天凌晨 12 点刷新</strong>。</li></ul>\n<ul><li>为避免用户使用“图片接龙”功能让小老师乱发表情包，对功能触发逻辑做出修改：<strong>触发表情包接龙所使用的图片，需要来自不同的用户</strong>。同一位用户连续发送多张图片，只计算为一次发图，不会直接触发接龙功能。</li></ul>\n<ul><li>测试时发现，如果同一群聊中短时大量调用小老师 bot，会因过载产生进程拥塞，影响其他群聊的对话。因此，未来可能会考虑做出一定限制：将小老师 bot 触发过载保护时的对话策略，由 STALL (按顺序逐个回复) 改为 DISCARD：如果小老师 bot 过载，将进入冷却期，冷却期结束前的所有对话均不再回复。不过，为了尽可能地不影响大家的体验，<strong>这个限制还并未实装</strong>，需要看看后续的运行情况再做决定。</li></ul>\n<p>青尘工作室将继续为芙提雅 ONLINE 增加功能、优化使用体验。就让小老师一直陪伴在分析员的身边吧 ~</p>"
 }

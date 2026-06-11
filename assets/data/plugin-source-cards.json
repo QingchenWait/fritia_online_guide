@@ -24,7 +24,7 @@
     "stars": 1,
     "forks": 0,
     "updated_at": "2026-06-08T17:16:10Z",
-    "hash": "642c8be11876",
+    "hash": "1af9b91a1ea0",
     "logo": "plugin/astrbot_plugin_smart_imagechat_hub/logo.png?v=9257ca1203b3"
   },
   {
@@ -47,7 +47,7 @@
     "stars": 4,
     "forks": 1,
     "updated_at": "2026-04-30T11:07:32Z",
-    "hash": "92225fc1fff1",
+    "hash": "f0717abadd6b",
     "logo": "plugin/astrbot_plugin_mimo_tts_voiceclone/logo.png?v=5b8afa9c50b6"
   },
   {
@@ -69,7 +69,7 @@
     "stars": 1,
     "forks": 0,
     "updated_at": "2026-05-12T03:06:18Z",
-    "hash": "1014825dfece",
+    "hash": "f9a380ebf2b6",
     "logo": "plugin/astrbot_plugin_animewife_plus/logo.png?v=9230c4ab9ad4"
   },
   {
@@ -96,7 +96,7 @@
     "stars": 1,
     "forks": 0,
     "updated_at": "2026-05-12T15:16:20Z",
-    "hash": "90d9fe0c2c2c",
+    "hash": "6f46d98ed8d9",
     "logo": "plugin/astrbot_plugin_cbjq_activity_reminder/logo.png?v=eb6903f9ea40"
   },
   {
@@ -121,7 +121,7 @@
     "stars": 1,
     "forks": 0,
     "updated_at": "2026-05-06T19:07:35Z",
-    "hash": "d28b40a4cde3",
+    "hash": "6a53dbf15741",
     "logo": "plugin/astrbot_plugin_multi_bot_control/logo.png?v=f00c2174a89b"
   },
   {
@@ -146,7 +146,7 @@
     "stars": 0,
     "forks": 0,
     "updated_at": "2026-06-10T09:14:13Z",
-    "hash": "4b27f8c28232",
+    "hash": "c86570887cfa",
     "logo": "plugin/astrbot_plugin_token_controller/logo.png?v=1e5ad4237cd1"
   },
   {
@@ -170,7 +170,7 @@
     "stars": 1,
     "forks": 0,
     "updated_at": "2026-05-14T03:42:20Z",
-    "hash": "834153c279b6",
+    "hash": "a3d3088e26b2",
     "logo": "plugin/astrbot_plugin_nickname_inject_defender/logo.png?v=12477dcf2558"
   }
 ]

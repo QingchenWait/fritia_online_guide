@@ -88,23 +88,54 @@ function renderCards(plugins) {
   `).join("");
 }
 
+function copyButtons() {
+  return Array.from(document.querySelectorAll("#copy-source-link, #sticky-copy-source-link"));
+}
+
+function setCopyButtonText(text) {
+  copyButtons().forEach((button) => {
+    button.textContent = text;
+  });
+}
+
 async function copySourceLink() {
-  const button = document.querySelector("#copy-source-link");
   const url = sourceUrl();
   try {
     await navigator.clipboard.writeText(url);
-    button.textContent = "已复制订阅链接";
+    setCopyButtonText("已复制订阅链接");
   } catch {
     window.prompt("复制订阅链接", url);
-    button.textContent = "手动复制订阅链接";
+    setCopyButtonText("手动复制订阅链接");
   }
   window.setTimeout(() => {
-    button.textContent = "一键复制订阅链接";
+    setCopyButtonText("一键复制订阅链接");
   }, 1800);
 }
 
+function setupStickyCopyButton() {
+  const inlineButton = document.querySelector("#copy-source-link");
+  const stickyButton = document.querySelector("#sticky-copy-source-link");
+  const header = document.querySelector(".source-page-header");
+  if (!inlineButton || !stickyButton || !header) {
+    return;
+  }
+
+  const update = () => {
+    const inlineRect = inlineButton.getBoundingClientRect();
+    const headerRect = header.getBoundingClientRect();
+    stickyButton.classList.toggle("is-visible", inlineRect.bottom <= headerRect.bottom + 8);
+  };
+
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+}
+
 async function main() {
-  document.querySelector("#copy-source-link")?.addEventListener("click", copySourceLink);
+  copyButtons().forEach((button) => {
+    button.addEventListener("click", copySourceLink);
+  });
+  setupStickyCopyButton();
 
   try {
     const plugins = await loadPlugins();
